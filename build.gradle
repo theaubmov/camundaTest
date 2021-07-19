@@ -1,0 +1,34 @@
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.13.0'
+    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.13.0'
+    implementation 'org.camunda.bpm:camunda-engine-plugin-spin:7.13.0'
+    implementation 'org.camunda.spin:camunda-spin-dataformat-all:1.9.0'
+    implementation 'com.h2database:h2:1.4.200'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.2.5.RELEASE'
+}
+
+group = 'com.camunda.demo'
+version = '1.0.0-SNAPSHOT'
+description = 'camunda-demo'
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
