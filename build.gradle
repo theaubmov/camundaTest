@@ -1,34 +1,42 @@
-
 plugins {
-    id 'java'
-    id 'maven-publish'
+	id 'org.springframework.boot' version '2.2.5.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
 }
 
+group = 'aub.camunda'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
 repositories {
-    mavenLocal()
-    maven {
+	mavenCentral()
+	maven {
         url = uri('https://repo.maven.apache.org/maven2/')
     }
 }
 
 dependencies {
-    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.13.0'
+	
+	implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.13.0'
     implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.13.0'
     implementation 'org.camunda.bpm:camunda-engine-plugin-spin:7.13.0'
     implementation 'org.camunda.spin:camunda-spin-dataformat-all:1.9.0'
-    implementation 'com.h2database:h2:1.4.200'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.2.5.RELEASE'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.2.5.RELEASE'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.2.5.RELEASE'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.2.5.RELEASE'
+	
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:2.2.5.RELEASE'
+	implementation 'org.postgresql:postgresql'
+	
+	runtimeOnly('com.h2database:h2')
+	runtimeOnly('javax.xml.bind:jaxb-api:2.3.1')
+	
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	testImplementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-test:7.13.0'
 }
 
-group = 'com.camunda.demo'
-version = '1.0.0-SNAPSHOT'
-description = 'camunda-demo'
-java.sourceCompatibility = JavaVersion.VERSION_11
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
+test {
+	useJUnitPlatform()
 }
